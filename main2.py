@@ -35,7 +35,11 @@ def ask(question: str, answers=[], q_type='closed'):
 def search(item_name, min_cc, max_cc, max_num=10):  
   #take page as html
   offers = []
-  html = rq.get(f'https://www.olx.pl/motoryzacja/motocykle-skutery/q-{item_name}/?search%5Bfilter_float_enginesize%3Afrom%5D={min_cc}&search%5Bfilter_float_enginesize%3Ato%5D={max_cc}&search%5Bfilter_enum_condition%5D%5B0%5D=notdamaged').text
+  querry = (f'https://www.olx.pl/motoryzacja/motocykle-skutery/q-{item_name}'+
+    f'/?search%5Bfilter_float_enginesize%3Afrom%5D={min_cc}'+
+    f'&search%5Bfilter_float_enginesize%3Ato%5D={max_cc}'+
+    f'&search%5Bfilter_enum_condition%5D%5B0%5D=notdamaged')
+  html = rq.get(querry).text
   offers.append(f'--->\t{item_name}\t<---')
   print(f'--->\t{item_name}\t<---')
   soup = bs(html, 'lxml') #bs object
